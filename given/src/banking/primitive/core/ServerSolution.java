@@ -11,6 +11,7 @@ import banking.primitive.core.Account.State;
 class ServerSolution implements AccountServer {
 
 	static String fileName = "accounts.ser";
+	private final int ACCOUNT_ZERO_BAL = 0.0f;
 
 	Map<String,Account> accountMap = null;
 
@@ -71,7 +72,7 @@ class ServerSolution implements AccountServer {
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
 		
-		if (balance < 0.0f) throw new IllegalArgumentException("New account may not be started with a negative balance");
+		if (balance < ACCOUNT_ZERO_BAL) throw new IllegalArgumentException("New account may not be started with a negative balance");
 		
 		return newAccountFactory(type, name, balance);
 	}

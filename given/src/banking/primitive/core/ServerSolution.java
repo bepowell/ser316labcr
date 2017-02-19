@@ -10,9 +10,10 @@ import banking.primitive.core.Account.State;
 
 class ServerSolution implements AccountServer {
 
-	static String fileName = "accounts.ser";
+	//Made variables private
+	private static String fileName = "accounts.ser";
 
-	Map<String,Account> accountMap = null;
+	private Map<String,Account> accountMap = null;
 
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
@@ -27,8 +28,9 @@ class ServerSolution implements AccountServer {
 				int size = sizeI.intValue();
 				for (int i=0; i < size; i++) {
 					Account acc = (Account) in.readObject();
-					if (acc != null)
+					if (acc != null){
 						accountMap.put(acc.getName(), acc);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -45,10 +47,33 @@ class ServerSolution implements AccountServer {
 		}
 	}
 	
+
+	//Fixed order of methods
+	public Account getAccount(String name) {
+		return accountMap.get(name);
+	}
+
+	public List<Account> getActiveAccounts() {
+		List<Account> result = new ArrayList<Account>();
+
+		for (Account acc : accountMap.values()) {
+			if (acc.getState() != State.CLOSED) {
+				result.add(acc);
+			}
+		}
+		return result;
+	}
+	
+	public List<Account> getAllAccounts() {
+		return new ArrayList<Account>(accountMap.values());
+	}
+	
 	private boolean _newAccountFactory(String type, String name, float balance)
 		throws IllegalArgumentException {
 		
-		if (accountMap.get(name) != null) return false;
+		if (accountMap.get(name) != null) {
+			return false;
+		} 
 		
 		Account acc;
 		if ("Checking".equals(type)) {
@@ -83,25 +108,6 @@ class ServerSolution implements AccountServer {
 		}
 		acc.setState(State.CLOSED);
 		return true;
-	}
-
-	public Account getAccount(String name) {
-		return accountMap.get(name);
-	}
-
-	public List<Account> getAllAccounts() {
-		return new ArrayList<Account>(accountMap.values());
-	}
-
-	public List<Account> getActiveAccounts() {
-		List<Account> result = new ArrayList<Account>();
-
-		for (Account acc : accountMap.values()) {
-			if (acc.getState() != State.CLOSED) {
-				result.add(acc);
-			}
-		}
-		return result;
 	}
 	
 	public void saveAccounts() throws IOException {

@@ -53,7 +53,9 @@ class MainFrame extends JFrame {
 		nameLabel		= new JLabel(props.getProperty("NameLabel"));
 		balanceLabel	= new JLabel(props.getProperty("BalanceLabel"));
 
-		Object[] accountTypes = {"Savings", "Checking"};
+		Object[] accountTypes = {
+			"Savings", "Checking"
+		};
 		typeOptions = new JComboBox(accountTypes);
 		nameField = new JTextField(20);
 		balanceField = new JTextField(20);

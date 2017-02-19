@@ -14,14 +14,16 @@ public class Checking extends Account {
 		super(name, balance);
 	}
 
+	public String getType() { return "Checking"; }
+	
 	/**
 	 * A deposit may be made unless the Checking account is closed
 	 * @param float is the deposit amount
 	 */
 	public boolean deposit(float amount) {
-		if (getState() != State.CLOSED && amount > 0.0f) {
+		if (getState() != State.CLOSED && amount > FLOAT_ZERO) {
 			balance = balance + amount;
-			if (balance >= 0.0f) {
+			if (balance >= FLOAT_ZERO) {
 				setState(State.OPEN);
 			}
 			return true;
@@ -34,14 +36,15 @@ public class Checking extends Account {
 	 * continue to withdraw an overdrawn account until the balance is below -$100
 	 */
 	public boolean withdraw(float amount) {
-		if (amount > 0.0f) {		
+		if (amount >= FLOAT_ZERO) {		
 			// KG: incorrect, last balance check should be >=
-			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
+			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -WITHDRAW_LIMIT_AMOUNT_LEFT)) {
 				balance = balance - amount;
 				numWithdraws++;
-				if (numWithdraws > 10)
-					balance = balance - 2.0f;
-				if (balance < 0.0f) {
+				if (numWithdraws > WITHDRAW_LIMIT){
+					balance = balance - WITHDRAW_FEE;
+				}
+				if (balance < FLOAT_ZERO) {
 					setState(State.OVERDRAWN);
 				}
 				return true;
@@ -49,8 +52,6 @@ public class Checking extends Account {
 		}
 		return false;
 	}
-
-	public String getType() { return "Checking"; }
 	
 	public String toString() {
 		return "Checking: " + getName() + ": " + getBalance();
@@ -58,5 +59,9 @@ public class Checking extends Account {
 	
 	private static final long serialVersionUID = 11L;
 	private int numWithdraws = 0;
-	
+	private final float FLOAT_ZERO = 0.0f;
+	private final float WITHDRAW_LIMIT_AMOUNT_LEFT = 100.0f;
+	private final float WITHDRAW_LIMIT = 10;
+	private final float WITHDRAW_FEE = 2.0f;
+  
 }

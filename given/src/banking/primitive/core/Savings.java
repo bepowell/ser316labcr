@@ -1,7 +1,7 @@
 package banking.primitive.core;
 
 public class Savings extends Account {
-	private int numWithdraws = 0;
+
 	private final float ZERO_AMOUNT = 0.0f;
 	private final int MAX_FREE_WITHDRAWS = 3;
 	private final float DEPOSIT_FEE = 0.5f;

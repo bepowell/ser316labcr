@@ -37,7 +37,7 @@ public class Checking extends Account {
 	 * continue to withdraw an overdrawn account until the balance is below -$100
 	 */
 	public boolean withdraw(float amount) {
-		if (amount > 0.0f) {		
+		if (amount >= 0.0f) {		
 			// KG: incorrect, last balance check should be >=
 			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
 				balance = balance - amount;

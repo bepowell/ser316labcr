@@ -27,8 +27,9 @@ class ServerSolution implements AccountServer {
 				int size = sizeI.intValue();
 				for (int i=0; i < size; i++) {
 					Account acc = (Account) in.readObject();
-					if (acc != null)
+					if (acc != null){
 						accountMap.put(acc.getName(), acc);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -68,7 +69,9 @@ class ServerSolution implements AccountServer {
 	private boolean newAccountFactory(String type, String name, float balance)
 		throws IllegalArgumentException {
 		
-		if (accountMap.get(name) != null) return false;
+		if (accountMap.get(name) != null) {
+			return false;
+		} 
 		
 		Account acc;
 		if ("Checking".equals(type)) {

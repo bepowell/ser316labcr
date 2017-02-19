@@ -1,6 +1,11 @@
 package banking.primitive.core;
 
 public class Savings extends Account {
+	private int numWithdraws = 0;
+	private final float ZERO_AMOUNT = 0.0f;
+	private final int MAX_FREE_WITHDRAWS = 3;
+	private final float DEPOSIT_FEE = 0.5f;
+	private final float WITHDRAW_FEE = 1.0f;
 
 	public Savings(String name) {
 		super(name);
@@ -16,9 +21,9 @@ public class Savings extends Account {
 	 * A deposit comes with a fee of 50 cents per deposit
 	 */
 	public boolean deposit(float amount) {
-		if (getState() != State.CLOSED && amount > 0.0f) {
-			balance = balance + amount - 0.50F;
-			if (balance >= 0.0f) {
+		if (getState() != State.CLOSED && amount > ZERO_AMOUNT) {
+			balance = balance + amount - DEPOSIT_FEE;
+			if (balance >= ZERO_AMOUNT) {
 				setState(State.OPEN);
 			}
 		}
@@ -30,13 +35,13 @@ public class Savings extends Account {
 	 * An account whose balance dips below 0 is in an OVERDRAWN state
 	 */
 	public boolean withdraw(float amount) {
-		if (getState() == State.OPEN && amount > 0.0f) {
+		if (getState() == State.OPEN && amount > ZERO_AMOUNT) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (numWithdraws > 3)
-				balance = balance - 1.0f;
-			// Changed from <= to <
-			if (balance < 0.0f) {
+			if (numWithdraws > MAX_FREE_WITHDRAWS)
+				balance = balance - WITHDRAW_FEE;
+			// KG BVA: should be < 0
+			if (balance < ZERO_AMOUNT) {
 				setState(State.OVERDRAWN);
 			}
 			return true;

@@ -2,13 +2,6 @@ package banking.primitive.core;
 
 public class Checking extends Account {
 
-	private static final long serialVersionUID = 11L;
-	private int numWithdraws = 0;
-	private final float FLOAT_ZERO = 0.0f;
-	private final float WITHDRAW_LIMIT_AMOUNT_LEFT = 100.0f;
-	private final float WITHDRAW_LIMIT = 10;
-	private final float WITHDRAW_FEE = 2.0f;
-	
 	private Checking(String name) {
 		super(name);
 	}
@@ -63,4 +56,12 @@ public class Checking extends Account {
 	public String toString() {
 		return "Checking: " + getName() + ": " + getBalance();
 	}
+	
+	private static final long serialVersionUID = 11L;
+	private int numWithdraws = 0;
+	private final float FLOAT_ZERO = 0.0f;
+	private final float WITHDRAW_LIMIT_AMOUNT_LEFT = 100.0f;
+	private final float WITHDRAW_LIMIT = 10;
+	private final float WITHDRAW_FEE = 2.0f;
+  
 }

@@ -58,16 +58,16 @@ public abstract class Account implements java.io.Serializable {
      */
     public abstract String getType();
 
-    protected final State getState() {
+    protected final State _getState() {
         return state;
     }
 
-    protected final void setState(State s) {
+    protected final void _setState(State s) {
         state = s;
     }
 
     public String toString() {
-        return "Account " + name + " has $" + balance + "and is " + getState()
+        return "Account " + name + " has $" + balance + "and is " + _getState()
                 + "\n";
     }
     protected float balance = 0.0F;

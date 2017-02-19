@@ -54,6 +54,5 @@ public class Savings extends Account {
 		return "Savings: " + getName() + ": " + getBalance();
 	}
 	
-	private static final long serialVersionUID = 111L;
 	private int numWithdraws = 0;
 }

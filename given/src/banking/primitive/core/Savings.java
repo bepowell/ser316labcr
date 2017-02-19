@@ -38,8 +38,9 @@ public class Savings extends Account {
 		if (getState() == State.OPEN && amount > ZERO_AMOUNT) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (numWithdraws > MAX_FREE_WITHDRAWS)
+			if (numWithdraws > MAX_FREE_WITHDRAWS){
 				balance = balance - WITHDRAW_FEE;
+			}
 			// KG BVA: should be < 0
 			if (balance < ZERO_AMOUNT) {
 				setState(State.OVERDRAWN);

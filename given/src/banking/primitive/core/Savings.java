@@ -1,8 +1,6 @@
 package banking.primitive.core;
 
 public class Savings extends Account {
-	private static final long serialVersionUID = 111L;
-	private int numWithdraws = 0;
 
 	public Savings(String name) {
 		super(name);
@@ -12,6 +10,8 @@ public class Savings extends Account {
 		super(name, balance);
 	}
 
+	public String getType() { return "Checking"; }
+	
 	/**
 	 * A deposit comes with a fee of 50 cents per deposit
 	 */
@@ -35,18 +35,19 @@ public class Savings extends Account {
 			numWithdraws++;
 			if (numWithdraws > 3)
 				balance = balance - 1.0f;
-			// KG BVA: should be < 0
-			if (balance <= 0.0f) {
+			// Changed from <= to <
+			if (balance < 0.0f) {
 				setState(State.OVERDRAWN);
 			}
 			return true;
 		}
 		return false;
 	}
-	
-	public String getType() { return "Checking"; }
 
 	public String toString() {
 		return "Savings: " + getName() + ": " + getBalance();
 	}
+	
+	private static final long serialVersionUID = 111L;
+	private int numWithdraws = 0;
 }

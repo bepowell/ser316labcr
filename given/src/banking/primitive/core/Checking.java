@@ -46,8 +46,9 @@ public class Checking extends Account {
 			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -WITHDRAW_LIMIT_AMOUNT_LEFT)) {
 				balance = balance - amount;
 				numWithdraws++;
-				if (numWithdraws > WITHDRAW_LIMIT)
+				if (numWithdraws > WITHDRAW_LIMIT){
 					balance = balance - WITHDRAW_FEE;
+				}
 				if (balance < FLOAT_ZERO) {
 					setState(State.OVERDRAWN);
 				}

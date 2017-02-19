@@ -11,7 +11,7 @@ import banking.primitive.core.Account.State;
 class ServerSolution implements AccountServer {
 
 
-	private final int ACCOUNT_ZERO_BAL = 0.0f;
+	private final float ACCOUNT_ZERO_BAL = 0.0f;
 	//Made variables private
 	private static String fileName = "accounts.ser";
 

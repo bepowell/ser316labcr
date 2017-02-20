@@ -1,25 +1,66 @@
+/*
+  File:	Checking
+  Author: kevinagary
+  Date:	2/19/17
+  
+  Description: File for the Checking class
+*/
+
 package banking.primitive.core;
 
+
+/**
+  Class: Checking	
+  
+  Description: Represents a checking account
+*/
 public class Checking extends Account {
 
 	private Checking(String name) {
 		super(name);
 	}
 
+	/**
+		Method: createChecking
+		Inputs: name of new checking account
+		Returns: Checking new account
+
+		Description: creates and returns a new Checking account
+	*/
     public static Checking createChecking(String name) {
         return new Checking(name);
     }
 
+	/**
+		Method: Checking
+		Inputs: name of checking account
+				balance of the checkng account
+		Returns:
+
+		Description: Constructor for Checking
+	*/
 	public Checking(String name, float balance) {
 		super(name, balance);
 	}
 
-	public String getType() { return "Checking"; }
+	/**
+		Method: getType
+		Inputs: 
+		Returns: String "Checking"
+
+		Description: returns "Checking"
+	*/
+	public String getType() { 
+		return "Checking"; 
+	}
 	
 	/**
-	 * A deposit may be made unless the Checking account is closed
-	 * @param float is the deposit amount
-	 */
+		Method: deposit
+		Inputs: amount of the deposit
+		Returns: boolean true if successful, false if not
+
+		Description: A deposit may be made unless the Checking account is closed
+	*/
 	public boolean deposit(float amount) {
 		if (_getState() != State.CLOSED && amount > FLOAT_ZERO) {
 			balance = balance + amount;
@@ -32,9 +73,13 @@ public class Checking extends Account {
 	}
 
 	/**
-	 * Withdrawal. After 10 withdrawals a fee of $2 is charged per transaction You may 
-	 * continue to withdraw an overdrawn account until the balance is below -$100
-	 */
+		Method: withdraw
+		Inputs: amount of the withdrawal
+		Returns: boolean true if successful, false if not
+
+		Description: After 10 withdrawals a fee of $2 is charged per transaction You may 
+					 continue to withdraw an overdrawn account until the balance is below -$100
+	*/
 	public boolean withdraw(float amount) {
 		if (amount >= FLOAT_ZERO) {		
 			// KG: incorrect, last balance check should be >=
@@ -53,6 +98,13 @@ public class Checking extends Account {
 		return false;
 	}
 	
+	/**
+		Method: toString
+		Inputs: 
+		Returns: String representation of Checking
+
+		Description: Returns String representation of Checking
+	*/
 	public String toString() {
 		return "Checking: " + getName() + ": " + getBalance();
 	}

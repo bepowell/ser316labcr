@@ -1,3 +1,11 @@
+/*
+  File:	MainFrame
+  Author: kevinagary
+  Date:	2/19/17
+  
+  Description: File for the GUI of the program
+*/
+
 package banking.gui;
 
 import banking.primitive.core.Account;
@@ -11,10 +19,22 @@ import java.awt.Container;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+  Class: MainFrame	
+  
+  Description: Creates the GUI for the program
+*/
 @SuppressWarnings("serial")
 class MainFrame extends JFrame {
 
 
+	/**
+		Method: MainFrame constructor
+		Inputs: propertyFile file that contains program properties
+		Returns: 
+
+		Description: Constructor for MainFrame
+	*/
 	public MainFrame(String propertyFile) throws IOException {
 
 		//** initialize myServer

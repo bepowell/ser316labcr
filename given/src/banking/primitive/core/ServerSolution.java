@@ -1,3 +1,11 @@
+/*
+  File: ServerSolution	
+  Author: kevinagary
+  Date:	2/19/2017
+  
+  Description: File for the ServerSolution class
+*/
+
 package banking.primitive.core;
 
 import java.util.ArrayList;
@@ -8,15 +16,20 @@ import java.io.*;
 
 import banking.primitive.core.Account.State;
 
+/**
+  Class: ServerSolution
+  
+  Description: ServerSolution class
+*/
 class ServerSolution implements AccountServer {
 
+	/**
+		Method: ServerSolution
+		Inputs:
+		Returns:
 
-	private final float ACCOUNT_ZERO_BAL = 0.0f;
-	//Made variables private
-	private static String fileName = "accounts.ser";
-
-	private Map<String,Account> accountMap = null;
-
+		Description: Constructor for ServerSolution
+	*/
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
 		File file = new File(fileName);
@@ -51,10 +64,25 @@ class ServerSolution implements AccountServer {
 	
 
 	//Fixed order of methods
+	
+	/**
+		Method: getAccount
+		Inputs: String name
+		Returns: Account with the name
+
+		Description: Returns the account with the given name
+	*/
 	public Account getAccount(String name) {
 		return accountMap.get(name);
 	}
 
+	/**
+		Method: getActiveAccounts
+		Inputs: 
+		Returns: List of active accounts
+
+		Description: Returns a List of active accounts
+	*/
 	public List<Account> getActiveAccounts() {
 		List<Account> result = new ArrayList<Account>();
 
@@ -66,6 +94,13 @@ class ServerSolution implements AccountServer {
 		return result;
 	}
 	
+	/**
+		Method: getAllAccounts
+		Inputs: 
+		Returns: List of accounts
+
+		Description: Returns a List of all accounts
+	*/
 	public List<Account> getAllAccounts() {
 		return new ArrayList<Account>(accountMap.values());
 	}
@@ -95,6 +130,16 @@ class ServerSolution implements AccountServer {
 		return true;
 	}
 
+	
+	/**
+		Method: newAccount
+		Inputs: String type of account
+				String name of account
+				float balance of account
+		Returns: true if successful, false if not
+
+		Description: Creates a new account with the given information
+	*/
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
 		
@@ -103,6 +148,13 @@ class ServerSolution implements AccountServer {
 		return _newAccountFactory(type, name, balance);
 	}
 	
+	/**
+		Method: closeAccount
+		Inputs: String name of account
+		Returns: true if successful, false if not
+
+		Description: Closes the account with the given name
+	*/
 	public boolean closeAccount(String name) {
 		Account acc = accountMap.get(name);
 		if (acc == null) {
@@ -112,6 +164,13 @@ class ServerSolution implements AccountServer {
 		return true;
 	}
 	
+	/**
+		Method: saveAccounts
+		Inputs: 
+		Returns: 
+
+		Description: Saves the accounts
+	*/
 	public void saveAccounts() throws IOException {
 		ObjectOutputStream out = null; 
 		try {
@@ -134,5 +193,11 @@ class ServerSolution implements AccountServer {
 			}
 		}
 	}
+	
+	private final float ACCOUNT_ZERO_BAL = 0.0f;
+	//Made variables private
+	private static String fileName = "accounts.ser";
+
+	private Map<String,Account> accountMap = null;
 
 }
